@@ -1,31 +1,62 @@
 {
-    "name": "responsively-lazy",
-    "title": "Responsively Lazy",
-    "version": "2.0.0",
-    "description": "Lazy load responsive images",
-    "homepage": "http://ivopetkov.com/b/lazy-load-responsive-images/",
-    "author": {
-        "name": "Ivo Petkov",
-        "email": "ivo@ivopetkov.com",
-        "url": "http://ivopetkov.com/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ivopetkov/responsively-lazy"
-    },
-    "bugs": {
-        "url": "https://github.com/ivopetkov/responsively-lazy/issues"
-    },
-    "keywords": [
-        "images",
-        "lazyload",
-        "responsive",
-        "seo"
-    ],
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "http://opensource.org/licenses/MIT"
-        }
-    ]
+  "name": "responsively-lazy",
+  "title": "Responsively Lazy",
+  "version": "2.0.0",
+  "description": "Lazy load responsive images",
+  "homepage": "http://ivopetkov.com/b/lazy-load-responsive-images/",
+  "author": {
+    "name": "Ivo Petkov",
+    "email": "ivo@ivopetkov.com",
+    "url": "http://ivopetkov.com/"
+  },
+  "scripts": {
+    "version": "npm run build:prod && verb && npm run changelog && git add .",
+    "postversion": "git push --tags",
+    "build:prod": "gulp build:js && gulp build:css:dev && gulp build:css:prod",
+    "build:release": "npm run updateBranches && npm run release && npm pack",
+    "changelog": "gren --data-source=commits --action=changelog --time-wrap=history --changelog-filename=CHANGELOG.md --override=true",
+    "updateBranches": "git checkout master && git merge develop && git push && git checkout develop && git push",
+    "release": "gren --data-source=commits --action=release --override=true"
+  },
+  "verb": {
+    "toc": true
+  },
+  "contributors": [
+    {
+      "name": "Alexander Vassbotn Røyne-Helgesen",
+      "email": "alexander@phun-ky.net",
+      "url": "http://phun-ky.net/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivopetkov/responsively-lazy"
+  },
+  "bugs": {
+    "url": "https://github.com/ivopetkov/responsively-lazy/issues"
+  },
+  "keywords": [
+    "images",
+    "lazyload",
+    "responsive",
+    "seo"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-stylint": "^4.0.0",
+    "gulp-stylus": "^2.6.0",
+    "gulp-uglify": "^2.0.1",
+    "pump": "^1.0.2"
+  }
 }
