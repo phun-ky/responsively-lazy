@@ -11,7 +11,26 @@ const pump = require('pump');
 gulp.task('compress', function (cb) {
   pump([
         gulp.src('src/responsivelyLazy.bundle.js'),
-        uglify(),
+        uglify({
+          beautify: false,
+          mangle: {
+            screw_ie8: true,
+            keep_fnames: true
+          },
+          compress: {
+            warnings: true,
+            screw_ie8: true,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            sequences: true,
+            dead_code: true,
+            evaluate: true,
+            join_vars: true,
+            if_return: true
+          },
+          comments: false
+        }),
         .pipe(rename('responsivelyLazy.min.js'))
         gulp.dest('./src')
     ],
@@ -19,7 +38,7 @@ gulp.task('compress', function (cb) {
   );
 });
 
-gulp.task('build:js', () => {
+gulp.task('babel', () => {
     return gulp.src('src/responsivelyLazy.js')
         .pipe(babel({
             presets: ['es2015']
@@ -75,3 +94,4 @@ gulp.task('lint', function () {
 });
 
 gulp.task('default', ['lint', 'build:css:dev']);
+gulp.task('build:js', ['babel', 'compress']);
