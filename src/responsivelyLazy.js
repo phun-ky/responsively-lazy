@@ -1,4 +1,4 @@
-/*
+/*!
  * Responsively Lazy
  * http://ivopetkov.com/b/lazy-load-responsive-images/
  * Copyright 2015-2016, Ivo Petkov
