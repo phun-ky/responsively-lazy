@@ -1,10 +1,3 @@
-/*!
- * Responsively Lazy
- * http://ivopetkov.com/b/lazy-load-responsive-images/
- * Copyright 2015-2016, Ivo Petkov
- * Free to use under the MIT license.
- */
-
 var responsivelyLazy = (function () {
 
     var hasWebPSupport = false;
