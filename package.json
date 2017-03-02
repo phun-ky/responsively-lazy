@@ -13,7 +13,7 @@
     "version": "npm run build:prod && verb && npm run changelog && git add .",
     "postversion": "git push --tags",
     "build:prod": "gulp build:js && gulp build:css:dev && gulp build:css:prod",
-    "build:release": "npm run updateBranches && npm run release && npm pack",
+    "build:release": "npm run updateBranches && npm run release",
     "changelog": "gren --data-source=commits --action=changelog --time-wrap=history --changelog-filename=CHANGELOG.md --override=true",
     "updateBranches": "git checkout master && git merge develop && git push && git checkout develop && git push",
     "release": "gren --data-source=commits --action=release --override=true"
