@@ -1,41 +1,54 @@
 const gulp = require('gulp');
 const stylus = require('gulp-stylus');
-const rename = require("gulp-rename");
 const stylint = require('gulp-stylint');
 const sourcemaps = require('gulp-sourcemaps');
+const rename = require("gulp-rename");
 const cssnano = require('gulp-cssnano');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const pump = require('pump');
+var banner = require("gulp-banner");
+var pkg = require('./package.json');
 
-gulp.task('compress', function (cb) {
-  pump([
-        gulp.src('src/responsivelyLazy.bundle.js'),
-        uglify({
-          beautify: false,
-          mangle: {
-            screw_ie8: true,
-            keep_fnames: true
-          },
-          compress: {
-            warnings: true,
-            screw_ie8: true,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            join_vars: true,
-            if_return: true
-          },
-          comments: false
-        }),
-        .pipe(rename('responsivelyLazy.min.js'))
-        gulp.dest('./src')
-    ],
-    cb
-  );
+
+var comment = '/**!\n' +
+    ' * <%= pkg.name %> <%= pkg.version %>\n' +
+    ' * <%= pkg.description %>\n' +
+    ' * <%= pkg.homepage %>\n' +
+    ' *\n' +
+    ' * Copyright © 2015-'+new Date().getFullYear() + ' <%= pkg.author.name %>\n' +
+    ' * Free to use under the MIT license.\n ' +
+    '*/\n\n';
+
+gulp.task('compress', () => {
+  return gulp.src('src/responsivelyLazy.bundle.js')
+          .pipe(sourcemaps.init())
+          .pipe(uglify({
+            beautify: false,
+            mangle: {
+              screw_ie8: true,
+              keep_fnames: true
+            },
+            compress: {
+              warnings: true,
+              screw_ie8: true,
+              conditionals: true,
+              unused: true,
+              comparisons: true,
+              sequences: true,
+              dead_code: true,
+              evaluate: true,
+              join_vars: true,
+              if_return: true
+            },
+            comments: false
+          }))
+          .pipe(rename('responsivelyLazy.min.js'))
+          .pipe(banner(comment, {
+            pkg: pkg
+          }))
+          .pipe(sourcemaps.write('.'))
+          .pipe(gulp.dest('./'));
 });
 
 gulp.task('babel', () => {
@@ -71,6 +84,9 @@ gulp.task('build:css:prod', function () {
       },
       zindex: false
     }))
+    .pipe(banner(comment, {
+      pkg: pkg
+    }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./'));
 });
@@ -83,6 +99,9 @@ gulp.task('build:css:dev', function () {
       'disable cache': true
     }))
     .pipe(rename('responsivelyLazy.css'))
+    .pipe(banner(comment, {
+      pkg: pkg
+    }))
     .pipe(gulp.dest('./'));
 });
 
