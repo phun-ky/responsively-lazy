@@ -60,7 +60,6 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-stylint": "^4.0.0",
     "gulp-stylus": "^2.6.0",
-    "gulp-uglify": "^2.0.1",
-    "pump": "^1.0.2"
+    "gulp-uglify": "^2.0.1"
   }
 }

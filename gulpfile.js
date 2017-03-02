@@ -2,12 +2,11 @@ const gulp = require('gulp');
 const stylus = require('gulp-stylus');
 const stylint = require('gulp-stylint');
 const sourcemaps = require('gulp-sourcemaps');
-const rename = require("gulp-rename");
+const rename = require('gulp-rename');
 const cssnano = require('gulp-cssnano');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
-const pump = require('pump');
-var banner = require("gulp-banner");
+var banner = require('gulp-banner');
 var pkg = require('./package.json');
 
 
@@ -21,7 +20,7 @@ var comment = '/**!\n' +
     '*/\n\n';
 
 gulp.task('compress', () => {
-  return gulp.src('src/responsivelyLazy.bundle.js')
+  return gulp.src('src/responsively-lazy.bundle.js')
           .pipe(sourcemaps.init())
           .pipe(uglify({
             beautify: false,
@@ -43,7 +42,7 @@ gulp.task('compress', () => {
             },
             comments: false
           }))
-          .pipe(rename('responsivelyLazy.min.js'))
+          .pipe(rename('responsively-lazy.min.js'))
           .pipe(banner(comment, {
             pkg: pkg
           }))
@@ -52,24 +51,24 @@ gulp.task('compress', () => {
 });
 
 gulp.task('babel', () => {
-    return gulp.src('src/responsivelyLazy.js')
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(rename('responsivelyLazy.bundle.js'))
-        .pipe(gulp.dest('./src'));
+  return gulp.src('src/responsively-lazy.js')
+      .pipe(babel({
+        presets: ['es2015']
+      }))
+      .pipe(rename('responsively-lazy.bundle.js'))
+      .pipe(gulp.dest('./src'));
 });
 
 // Get one .styl file and render
 gulp.task('build:css:prod', function () {
-  return gulp.src('./src/responsivelyLazy.styl')
+  return gulp.src('./src/responsively-lazy.styl')
     .pipe(stylint())
     .pipe(stylint.reporter())
     .pipe(stylus({
       'include css': true,
       'disable cache': true
     }))
-    .pipe(rename('responsivelyLazy.min.css'))
+    .pipe(rename('responsively-lazy.min.css'))
     .pipe(sourcemaps.init())
     .pipe(cssnano({
       reduceIdents: false,
@@ -92,13 +91,13 @@ gulp.task('build:css:prod', function () {
 });
 
 gulp.task('build:css:dev', function () {
-  return gulp.src('./src/responsivelyLazy.styl')
+  return gulp.src('./src/responsively-lazy.styl')
     .pipe(stylus({
       compress: false,
       'include css': true,
       'disable cache': true
     }))
-    .pipe(rename('responsivelyLazy.css'))
+    .pipe(rename('responsively-lazy.css'))
     .pipe(banner(comment, {
       pkg: pkg
     }))
@@ -107,7 +106,7 @@ gulp.task('build:css:dev', function () {
 
 // Get one .styl file and render
 gulp.task('lint', function () {
-  return gulp.src('./src/responsivelyLazy.styl')
+  return gulp.src('./src/responsively-lazy.styl')
     .pipe(stylint())
     .pipe(stylint.reporter());
 });
