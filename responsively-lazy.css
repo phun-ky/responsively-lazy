@@ -1,9 +1,12 @@
-/*
- * Responsively Lazy
+/**!
+ * responsively-lazy 2.0.0
+ * Lazy load responsive images
  * http://ivopetkov.com/b/lazy-load-responsive-images/
- * Copyright 2015-2016, Ivo Petkov
+ *
+ * Copyright © 2015-2017 Ivo Petkov
  * Free to use under the MIT license.
-*/
+ */
+
 .responsively-lazy:not(img) {
   position: relative;
   height: 0;
